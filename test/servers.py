@@ -16,6 +16,9 @@ class MetadataServer:
 
     def get_block_locations(self, block_path):
         return self.metadata[block_path]['locations']
+        
+    def get_block_paths(self,file_path):
+        return self.metadata[file_path]['blocks']
 
     def get_file_size(self, file_path):
         if file_path in self.metadata:
@@ -43,9 +46,9 @@ class MetadataServer:
             del self.metadata[file_path]
             self.save_metadata()
 
-    def set_block_location(self, block_path, location):
-        self.metadata[block_path]['locations'].append(location)
-        self.save_metadata()
+    # def set_block_location(self, block_path, location):
+    #     self.metadata[block_path]['locations'].append(location)
+    #     self.save_metadata()
 
 class DataServer:
     def __init__(self, port):
