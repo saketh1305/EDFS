@@ -29,9 +29,6 @@ def process_directory(old_fs, path):
 
     return new_fs
 
-with open("metadata.json") as f:
-    metadata_file_structure = json.load(f)
-# file_structure = process_directory(metadata_file_structure, "/")
 
 @app.route('/hi')
 def index():
@@ -65,25 +62,15 @@ def upload_file():
     client = DFSClient('localhost', 6000) 
     command = "put "+ source_path + " " + destination_path
     response = client.execute_command(command)
-    
     return response,200
-    # if not file or not folder_path:
-    #     return 'Error: file or folder_path not provided', 400
-
-    # try:
-    #     print(folder_path)
-    #     # filename = secure_filename(file.filename)
-    #     # file.save(os.path.join(folder_path, filename))
-    #     # return 'File uploaded successfully', 200
-    # except Exception as e:
-    #     return f'Error: {str(e)}', 500
 
 @app.route('/download_file')
 def download_file():
     file_path = request.args.get('path')
     file_name = os.path.basename(file_path)
     directory = os.path.dirname(file_path)
-    print(metadata_file_structure[file_path]["blocks"])
+    with open("metadata.json") as f:
+        metadata_file_structure = json.load(f)
     block_paths = metadata_file_structure[file_path]["blocks"]
     data = b''
     for block_path in block_paths:

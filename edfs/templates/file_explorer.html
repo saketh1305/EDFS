@@ -92,31 +92,36 @@
                         let itemPath = item.path;
 
                         if (item.type === "file") {
-                            // html += `<li class="list-group-item">
-                            //             <a class="file-text d-flex justify-content-between align-items-center" onclick="openPartitionsModal('${itemId}', '${itemPath}', ${JSON.stringify(item.partitions).split('"').join('&quot;')})">
-                            //                 <span><i class="fas fa-file file-icon me-1"></i>${itemPath.split('/').pop()}</span>
-                            //             </a>
-                            //         </li>`;
                             html += `<li class="list-group-item">
-                            <a class="file-text d-flex justify-content-between align-items-center" onclick="openPartitionsModal('${itemId}', '${itemPath}', ${JSON.stringify(item.partitions).split('"').join('&quot;')})">
-                                <span><i class="fas fa-file file-icon me-1"></i>${itemPath.split('/').pop()}</span>
-                                <a href="/download_file?path=${encodeURIComponent(itemPath)}" class="download-icon"><i class="fas fa-download"></i></a>
-                            </a>
-                        </li>`;
+                                <div class="d-flex justify-content-between">
+                                <div class = "d-flex align-items-center">
+                                <a class="file-text" onclick="openPartitionsModal('${itemId}', '${itemPath}', ${JSON.stringify(item.partitions).split('"').join('&quot;')})" data-toggle="tooltip" data-placement="top" title="Click to view partitions">
+                                    <span><i class="fas fa-file file-icon me-1"></i>${itemPath.split('/').pop()}</span>
+                                </a>
+                                </div>
+                                <div>    
+                                    <a href="/download_file?path=${encodeURIComponent(itemPath)}" class="download-icon"><i class="text-dark fas fa-download" data-toggle="tooltip" data-placement="top" title="Download File"></i></a>
+                                </div>
+                                </div>
+                            </li>`;
                         } else if (item.type === "directory") {
                             html += `<li class="list-group-item folder">
-                                        <a class="folder-name d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#${itemId}" role="button" aria-expanded="false" aria-controls="${itemId}">
+                                        <div class="d-flex justify-content-between">
+                                        <div class = "d-flex align-items-center">
+                                        <a class="folder-name" data-bs-toggle="collapse" href="#${itemId}" role="button" aria-expanded="false" aria-controls="${itemId}" data-toggle="tooltip" data-placement="top" title="Click to view sub directories">
                                             <span class="folder-text"><i class="fas fa-folder folder-icon me-1"></i>${itemPath.split('/').pop()}</span>
-                                            <span>
-                                                <a href="#" onclick="uploadFile('${itemPath}'); event.preventDefault();"><i class="fas fa-plus-circle folder-icon"></i></a>
-                                            </span>
                                         </a>
-
+                                        </div>
+                                        <div>
+                                            <span>
+                                                <a href="#" onclick="uploadFile('${itemPath}'); event.preventDefault();"><i class="text-dark fas fa-plus-circle folder-icon" data-toggle="tooltip" data-placement="top" title="Add file to this directory in EDFS"></i></a>
+                                            </span>
+                                        </div>
+                                        </div>
                                         <div class="collapse" id="${itemId}" data-bs-parent="${depth === 0 ? '#file-explorer' : ''}">
                                             ${buildFileExplorer(item, itemId, depth + 1)}
                                         </div>
                                     </li>`;
-
                         }
                     });
                 }
@@ -127,7 +132,6 @@
 
         // Build the file explorer.
             let fileExplorer = buildFileExplorer(jsonData);
-            // document.getElementById('file-explorer').innerHTML = fileExplorer;
             $("#file-explorer").html(fileExplorer);
 
         });
@@ -213,6 +217,10 @@
             document.getElementById('partitions-modal-body').innerHTML = partitionsHtml;
             partitionsModal.show();
         }
+
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
 
     </script>
 </body>
