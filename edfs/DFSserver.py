@@ -67,11 +67,11 @@ class DFSServer:
         items = list(metadata.keys())
         if dfs_dir_path in items:
             return True
-        else:
-            dfs_dir_path = dfs_dir_path + '/'
-            for item in items:
-                if not (item.find(dfs_dir_path) == -1):
-                    return True
+        # else:
+        #     dfs_dir_path = dfs_dir_path + '/'
+        #     for item in items:
+        #         if not (item.find(dfs_dir_path) == -1):
+        #             return True
         return False
 
     def isFile(self, dfs_dir_path):
@@ -84,6 +84,7 @@ class DFSServer:
     def parent_dir_exist(self,dfs_dir_path):
         splits = dfs_dir_path.split("/")
         if len(splits) == 2:
+            print("")
             return True
         parent_dir = "/".join(splits[:-1])
         if self.dir_already_exist(parent_dir):
@@ -142,12 +143,13 @@ class DFSServer:
             dfs_dir_path = tokens[1]
             if dfs_dir_path[-1] == '/' and dfs_dir_path != '/':
                 conn.sendall(f'Invalid Path!!'.encode())
-            if dfs_dir_path == '/':
+            elif dfs_dir_path == '/':
                 conn.sendall(f'Root Directory Cannot be Created!!'.encode())
             elif self.dir_already_exist(dfs_dir_path):
                 conn.sendall(f'Directory Cannot be Created!!\n {dfs_dir_path} Already Exists :-('.encode())
             else:
                 if not self.parent_dir_exist(dfs_dir_path):
+                    # print("TEST")
                     conn.sendall(f'{dfs_dir_path} : Invalid Path - Parent directory doesn\'t exist!'.encode())
                 else:
                     metadata_server.add_dir(dfs_dir_path)
