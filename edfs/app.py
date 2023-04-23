@@ -30,12 +30,16 @@ def process_directory(old_fs, path):
     return new_fs
 
 
-@app.route('/hi')
+@app.route('/edfs')
 def index():
     with open("metadata.json") as f:
         metadata_file_structure_ = json.load(f)
     file_structure = process_directory(metadata_file_structure_, "/")
     return render_template('file_explorer.html', file_structure=json.dumps(file_structure))
+
+@app.route('/')
+def landing_page():
+    return render_template('index.html')
 
 @app.route('/get_replica_content')
 def get_replica_content():

@@ -3,10 +3,17 @@ import os
 import threading
 import json
 from servers import MetadataServer,DataServer
+from rich.console import Console
+from rich.prompt import Prompt
+from rich.table import Table
+from rich.box import ROUNDED
+import platform
 
+console = Console()
 
 metadata_server = MetadataServer('metadata.json')
-data_servers = [DataServer(port) for port in [5000, 5001, 5002]]
+dataserver_ports = [5000, 5001, 5002]
+data_servers = [DataServer(port) for port in dataserver_ports]
 
 
 class DFSServer:
@@ -19,10 +26,10 @@ class DFSServer:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((self.host, self.port))
             s.listen()
-            print(f'DFS server listening on {self.host}:{self.port}...')
+            console.print(f'DFS server listening on {self.host}:{self.port}...' , style = "bold red")
             while True:
                 conn, addr = s.accept()
-                print(f'Connection from {addr} received')
+                console.print(f'Connection from {addr} received' , style = "bold green")
                 threading.Thread(target=self.handle_request, args=(conn,)).start()
 
     def write_file(self,path,data):
@@ -141,17 +148,18 @@ class DFSServer:
                 conn.sendall(f'Directory Cannot be Created!!\n {dfs_dir_path} Already Exists :-('.encode())
             else:
                 if not self.parent_dir_exist(dfs_dir_path):
-                    conn.sendall(f'{dfs_dir_path} : Invalid Path\nParent directory doesn\'t exist!'.encode())
-                metadata_server.add_dir(dfs_dir_path)
-                splits = dfs_dir_path.split("/")
-                if len(splits) > 2:
-                    parent_dir = "/".join(splits[:-1])
+                    conn.sendall(f'{dfs_dir_path} : Invalid Path - Parent directory doesn\'t exist!'.encode())
                 else:
-                    parent_dir = "/"
-                dir_name = dfs_dir_path.split('/')[-1]
-                metadata_server.metadata[parent_dir]['sub_dir'].append(dir_name)
-                metadata_server.save_metadata()
-                conn.sendall(f'{dfs_dir_path} : Directory Created Successfully!!'.encode())
+                    metadata_server.add_dir(dfs_dir_path)
+                    splits = dfs_dir_path.split("/")
+                    if len(splits) > 2:
+                        parent_dir = "/".join(splits[:-1])
+                    else:
+                        parent_dir = "/"
+                    dir_name = dfs_dir_path.split('/')[-1]
+                    metadata_server.metadata[parent_dir]['sub_dir'].append(dir_name)
+                    metadata_server.save_metadata()
+                    conn.sendall(f'{dfs_dir_path} : Directory Created Successfully!!'.encode())
 
         elif tokens[0] == 'rmdir':
             dfs_dir_path = tokens[1]
@@ -203,6 +211,7 @@ class DFSServer:
                 path = '/'
             else:
                 path = tokens[1]
+
             if not self.dir_already_exist(path):
                 conn.sendall(f'Invalid path'.encode())
             elif not self.is_directory(path):
@@ -211,7 +220,10 @@ class DFSServer:
                 files = metadata_server.metadata[path]["files"]
                 dirs = metadata_server.metadata[path]["sub_dir"]
                 objects = '\n'.join(dirs+files)
-                conn.sendall(objects.encode())
+                if objects == '':
+                    conn.sendall("Empty!!".encode())
+                else:
+                    conn.sendall(objects.encode())
         else:
             conn.sendall(f'Unknown command: {tokens[0]}'.encode())
 
@@ -223,9 +235,31 @@ class DFSServer:
         for data_server in data_servers:
             data_server.shutdown()
 
+welcome_message = r"""
+  _______    _____     _____    _____ 
+ |  _____|  |  __ \   |  ___|  / ____|  
+ | |___     | |  | |  | |__   | (___
+ |  ___|    | |  | |  |  __|   \___ \
+ | |_____   | |__| |  | |      ____) |
+ |_______|  |_____/   |_|     |_____/     Emulating HDFS version 1.0.0
+
+Using Python version {python_version}
+""".format(python_version=platform.python_version())
+print(welcome_message)
+
+def print_welcome_message():
+    welcome_message = '''
+Welcome to your EDFS Server!
+'''
+    console.print(welcome_message, style='bold yellow')
 
 if __name__ == '__main__':
+    print_welcome_message()
     server = DFSServer('localhost', 6000)
+    console.print("Server Stats: " , style='bold yellow')
+    console.print("Starting MetadataServer..." , style = "bold cyan")
+    console.print("Starting Data Node Servers..." , style = "bold cyan")
+    print()
     server.start()
 
 

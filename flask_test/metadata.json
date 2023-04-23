@@ -19,7 +19,7 @@
 	"/dir2": {
 		"type": "directory",
 		"files": [],
-		"sub_dir": ["dir_2_1" , "dir_2_2"]
+		"sub_dir": ["dir_2_1" , "dir_2_2", "dir_2_3"]
 	},
 	"/dir2/dir_2_1": {
 		"type": "directory",
@@ -27,6 +27,11 @@
 		"sub_dir": []
 	},
 	"/dir2/dir_2_2": {
+		"type": "directory",
+		"files": [],
+		"sub_dir": []
+	},
+	"/dir2/dir_2_3": {
 		"type": "directory",
 		"files": [],
 		"sub_dir": []

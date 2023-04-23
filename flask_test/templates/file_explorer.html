@@ -80,6 +80,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+
             let jsonData = JSON.parse('{{ file_structure | safe }}');
 
             function buildFileExplorer(jsonObject, parentId = '', depth = 0) {
@@ -91,23 +92,31 @@
                         let itemPath = item.path;
 
                         if (item.type === "file") {
+                            // html += `<li class="list-group-item">
+                            //             <a class="file-text d-flex justify-content-between align-items-center" onclick="openPartitionsModal('${itemId}', '${itemPath}', ${JSON.stringify(item.partitions).split('"').join('&quot;')})">
+                            //                 <span><i class="fas fa-file file-icon me-1"></i>${itemPath.split('/').pop()}</span>
+                            //             </a>
+                            //         </li>`;
                             html += `<li class="list-group-item">
-                                        <a class="file-text d-flex justify-content-between align-items-center" onclick="openPartitionsModal('${itemId}', '${itemPath}', ${JSON.stringify(item.partitions).split('"').join('&quot;')})">
-                                            <span><i class="fas fa-file file-icon me-1"></i>${itemPath.split('/').pop()}</span>
-                                        </a>
-                                    </li>`;
+                            <a class="file-text d-flex justify-content-between align-items-center" onclick="openPartitionsModal('${itemId}', '${itemPath}', ${JSON.stringify(item.partitions).split('"').join('&quot;')})">
+                                <span><i class="fas fa-file file-icon me-1"></i>${itemPath.split('/').pop()}</span>
+                                <a href="/download_file?path=${encodeURIComponent(itemPath)}" class="download-icon"><i class="fas fa-download"></i></a>
+                            </a>
+                        </li>`;
                         } else if (item.type === "directory") {
                             html += `<li class="list-group-item folder">
                                         <a class="folder-name d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#${itemId}" role="button" aria-expanded="false" aria-controls="${itemId}">
                                             <span class="folder-text"><i class="fas fa-folder folder-icon me-1"></i>${itemPath.split('/').pop()}</span>
                                             <span>
-                                                <i class="fas fa-plus-circle me-2 folder-icon" onclick="createFile('${itemPath}')"></i>
+                                                <a href="#" onclick="uploadFile('${itemPath}'); event.preventDefault();"><i class="fas fa-plus-circle folder-icon"></i></a>
                                             </span>
                                         </a>
+
                                         <div class="collapse" id="${itemId}" data-bs-parent="${depth === 0 ? '#file-explorer' : ''}">
                                             ${buildFileExplorer(item, itemId, depth + 1)}
                                         </div>
                                     </li>`;
+
                         }
                     });
                 }
@@ -122,6 +131,36 @@
             $("#file-explorer").html(fileExplorer);
 
         });
+
+        async function uploadFile(folderPath) {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.onchange = async (e) => {
+                const file = e.target.files[0];
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('folder_path', folderPath);
+
+                try {
+                    const response = await fetch('/upload_file', {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    if (response.ok) {
+                        alert('File uploaded successfully');
+                        location.reload();
+                    } else {
+                        alert('File upload failed: ' + await response.text());
+                    }
+                } catch (error) {
+                    console.error('Error uploading file:', error);
+                    alert('Failed to upload file. Please check the console for more details.');
+                }
+            };
+            input.click();
+        }
+
 
         async function viewReplicaContent(replicaPath) {
             try {
@@ -174,7 +213,6 @@
             document.getElementById('partitions-modal-body').innerHTML = partitionsHtml;
             partitionsModal.show();
         }
-
 
     </script>
 </body>
