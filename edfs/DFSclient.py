@@ -31,20 +31,20 @@ Type 'help' to see available commands.
 def show_help():
     table = Table(title='Available Commands', box=ROUNDED)
     table.add_column('Command', style='bold cyan')
+    table.add_column('Syntax')
     table.add_column('Description')
 
-    table.add_row('ls', 'List directory')
-    table.add_row('mkdir', 'Make directory')
-    table.add_row('cat', 'Concatenate')
-    table.add_row('rmdir', 'Remove directory')
-    table.add_row('rm', 'Remove (file)')
-    table.add_row('put', 'Upload file to server')
-    table.add_row('get', 'Download file from server')
+    table.add_row('ls', 'ls {dfs_path}','List directory')
+    table.add_row('mkdir', 'mkdir {dfs_folder_path}','Make directory')
+    table.add_row('cat','cat {dfs_file_path}','Concatenate')
+    table.add_row('rmdir', 'rmdir {dfs_folder_path}' ,'Remove directory')
+    table.add_row('rm', 'rm {dfs_file_path}','Remove (file)')
+    table.add_row('put', 'put {local_source_path} {dfs_destination_path}','Upload file to server')
+    table.add_row('get', 'get {dfs_source_path} {local_destination_path}','Download file from server')
 
 
-    table.add_row('help', 'Show this help message')
-    table.add_row('exit', 'Exit the server')
-    # Add more commands and their descriptions here
+    table.add_row('help', 'help','Show this help message')
+    table.add_row('exit', 'exit','Exit the server')
 
     console.print(table)
 

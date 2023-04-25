@@ -1,0 +1,49 @@
+sh", "IsOfficial": "T", "Percentage": 0.0}
+{"CountryCode": "KOR", "Language": "Chinese", "IsOfficial": "F", "Percentage": 0.1}
+{"CountryCode": "KOR", "Language": "Korean", "IsOfficial": "T", "Percentage": 99.9}
+{"CountryCode": "KWT", "Language": "Arabic", "IsOfficial": "T", "Percentage": 78.1}
+{"CountryCode": "KWT", "Language": "English", "IsOfficial": "F", "Percentage": 0.0}
+{"CountryCode": "LAO", "Language": "Lao", "IsOfficial": "T", "Percentage": 67.2}
+{"CountryCode": "LAO", "Language": "Lao-Soung", "IsOfficial": "F", "Percentage": 5.2}
+{"CountryCode": "LAO", "Language": "Mon-khmer", "IsOfficial": "F", "Percentage": 16.5}
+{"CountryCode": "LAO", "Language": "Thai", "IsOfficial": "F", "Percentage": 7.8}
+{"CountryCode": "LBN", "Language": "Arabic", "IsOfficial": "T", "Percentage": 93.0}
+{"CountryCode": "LBN", "Language": "Armenian", "IsOfficial": "F", "Percentage": 5.9}
+{"CountryCode": "LBN", "Language": "French", "IsOfficial": "F", "Percentage": 0.0}
+{"CountryCode": "LBR", "Language": "Bassa", "IsOfficial": "F", "Percentage": 13.7}
+{"CountryCode": "LBR", "Language": "Gio", "IsOfficial": "F", "Percentage": 7.9}
+{"CountryCode": "LBR", "Language": "Grebo", "IsOfficial": "F", "Percentage": 8.9}
+{"CountryCode": "LBR", "Language": "Kpelle", "IsOfficial": "F", "Percentage": 19.5}
+{"CountryCode": "LBR", "Language": "Kru", "IsOfficial": "F", "Percentage": 7.2}
+{"CountryCode": "LBR", "Language": "Loma", "IsOfficial": "F", "Percentage": 5.8}
+{"CountryCode": "LBR", "Language": "Malinke", "IsOfficial": "F", "Percentage": 5.1}
+{"CountryCode": "LBR", "Language": "Mano", "IsOfficial": "F", "Percentage": 7.2}
+{"CountryCode": "LBY", "Language": "Arabic", "IsOfficial": "T", "Percentage": 96.0}
+{"CountryCode": "LBY", "Language": "Berberi", "IsOfficial": "F", "Percentage": 1.0}
+{"CountryCode": "LCA", "Language": "Creole French", "IsOfficial": "F", "Percentage": 80.0}
+{"CountryCode": "LCA", "Language": "English", "IsOfficial": "T", "Percentage": 20.0}
+{"CountryCode": "LIE", "Language": "German", "IsOfficial": "T", "Percentage": 89.0}
+{"CountryCode": "LIE", "Language": "Italian", "IsOfficial": "F", "Percentage": 2.5}
+{"CountryCode": "LIE", "Language": "Turkish", "IsOfficial": "F", "Percentage": 2.5}
+{"CountryCode": "LKA", "Language": "Mixed Languages", "IsOfficial": "F", "Percentage": 19.6}
+{"CountryCode": "LKA", "Language": "Singali", "IsOfficial": "T", "Percentage": 60.3}
+{"CountryCode": "LKA", "Language": "Tamil", "IsOfficial": "T", "Percentage": 19.6}
+{"CountryCode": "LSO", "Language": "English", "IsOfficial": "T", "Percentage": 0.0}
+{"CountryCode": "LSO", "Language": "Sotho", "IsOfficial": "T", "Percentage": 85.0}
+{"CountryCode": "LSO", "Language": "Zulu", "IsOfficial": "F", "Percentage": 15.0}
+{"CountryCode": "LTU", "Language": "Belorussian", "IsOfficial": "F", "Percentage": 1.4}
+{"CountryCode": "LTU", "Language": "Lithuanian", "IsOfficial": "T", "Percentage": 81.6}
+{"CountryCode": "LTU", "Language": "Polish", "IsOfficial": "F", "Percentage": 7.0}
+{"CountryCode": "LTU", "Language": "Russian", "IsOfficial": "F", "Percentage": 8.1}
+{"CountryCode": "LTU", "Language": "Ukrainian", "IsOfficial": "F", "Percentage": 1.1}
+{"CountryCode": "LUX", "Language": "French", "IsOfficial": "T", "Percentage": 4.2}
+{"CountryCode": "LUX", "Language": "German", "IsOfficial": "T", "Percentage": 2.3}
+{"CountryCode": "LUX", "Language": "Italian", "IsOfficial": "F", "Percentage": 4.6}
+{"CountryCode": "LUX", "Language": "Luxembourgish", "IsOfficial": "T", "Percentage": 64.4}
+{"CountryCode": "LUX", "Language": "Portuguese", "IsOfficial": "F", "Percentage": 13.0}
+{"CountryCode": "LVA", "Language": "Belorussian", "IsOfficial": "F", "Percentage": 4.1}
+{"CountryCode": "LVA", "Language": "Latvian", "IsOfficial": "T", "Percentage": 55.1}
+{"CountryCode": "LVA", "Language": "Lithuanian", "IsOfficial": "F", "Percentage": 1.2}
+{"CountryCode": "LVA", "Language": "Polish", "IsOfficial": "F", "Percentage": 2.1}
+{"CountryCode": "LVA", "Language": "Russian", "IsOfficial": "F", "Percentage": 32.5}
+{"CountryCode": "LVA", "Language": 
